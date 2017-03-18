@@ -38,15 +38,16 @@ $("button").click(function(e) {
 	e.preventDefault();
 	$(".hidden").show();
 	var input = $(".js-input").val();
-	input = input.toLowerCase().replace(/[^a-z]/g, " ").trim();
-	input = input.split(" ").sort();
-	for (var i = 0; i < input.length; i++) {
-		if (input[i] === " ") {
-			input.splice(i, 1);
-		}
-		return input;
-	}
-	console.log(input);
+	input = input.toLowerCase().replace(/\n/g, " ").split(" ").sort(); 
+	//.replace(/[,!.";:-]/g, "",/[^a-z]/g, " ").trim();
+	// input = input.replace(/\s+/g, " ");
+	
+	// input.forEach(function(item) {
+	// 	if (item === "") {
+	// 		input.splice(item, 1);
+	// 	}
+	//});
+		console.log(input);	
 	// normalizeText(input);
 	$(".js-count").html(wordCount(input));
 	$(".js-unique").html(uniqueWordCount(input));
