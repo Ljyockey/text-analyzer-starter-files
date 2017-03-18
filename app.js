@@ -47,7 +47,7 @@ $("button").click(function(e) {
 	// 		input.splice(item, 1);
 	// 	}
 	//});
-		console.log(input);	
+	//	console.log(input);	
 	// normalizeText(input);
 	$(".js-count").html(wordCount(input));
 	$(".js-unique").html(uniqueWordCount(input));
