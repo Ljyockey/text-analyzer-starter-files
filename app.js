@@ -11,15 +11,16 @@ function analyzeWords(text) {
 
 	$(".js-count").html(totalCount);
 	$(".js-unique").html(uniqueTotal);
-	$(".js-average").html(averageTotal);
+	$(".js-average").html(averageTotal + " characters");
 };
 
+	function textReplaced(text) {
+		return	text.replace(/\r?\n|\r/g, "");
+		//not sure why this and normalizeText didn't work when combined
+	}
+
 	function normalizeText(text) {
-	text.replace(/\r?\n|\r/g, "");
 	return text.toLowerCase().match(/\b[^\s]+\b/g).sort();
-	// console.log(Array.isArray(text));
-	// return text;
-	//not feeling super confident about this split
 }
 
 	function wordCount(text) {
@@ -30,13 +31,19 @@ function analyzeWords(text) {
  /*We start with a variable that stores the counter. Then we need
  to see if a particular item in the array is in the array. If it is not, 1 can
  be added to the counter*/
- 	var result = 0;
+ 	var result = [];
+ 	//var result = 0;
  	for (var i = 0; i < text.length; i++) {
- 		if (text[i] !== text[i+1] && text[i] !== text[i-1]) {
- 			result += 1;
+ 	// 	if (text[i] !== text[i+1] && text[i] !== text[i-1]) {
+ 	// 		result += 1;
+ 	// 	}
+ 		if (result.indexOf(text[i]) === -1) {
+ 			result.push(text[i]);
+ 			//This works but my if statement did not. Still not
+ 			//100% sure why if statement didn't work (or didn't return 33)
  		}
  	}
- 	return result;
+ 	return result.length;
 	};
 
 	function averageWordLength(text) {
@@ -52,7 +59,7 @@ function analyzeWords(text) {
 $("button").click(function(e) {
 	e.preventDefault();
 	var input = $(".js-input").val();
-	analyzeWords(input);
+	analyzeWords(textReplaced(input));
 	$(".hidden").show();
 });
 
