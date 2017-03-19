@@ -1,17 +1,19 @@
 // your code here!
 
-// function normalizeText(text) {
-// 	var newText = text.toLowerCase();
-// 	newText.split(/[ ,!.";:-]/).sort();
-// 	return newText;
-// 	//not feeling super confident about this split
-// };
-
-function wordCount(text) {
-	return text.length;
+function normalizeText(text) {
+	var newText = text.toLowerCase().replace(/\r?\n|\r/g, "");
+	newText.match(/\b[^\s]+\b/g).sort();
+	return newText;
+	//not feeling super confident about this split
 };
 
-function uniqueWordCount(text) {
+function manipulateWords(text) {
+
+	function wordCount(text) {
+	return text.length;
+	};
+
+	function uniqueWordCount(text) {
  /*We start with a variable that stores the counter. Then we need
  to see if a particular item in the array is in the array. If it is not, 1 can
  be added to the counter*/
@@ -22,9 +24,9 @@ function uniqueWordCount(text) {
  		}
  	}
  	return result;
-};
+	};
 
-function averageWordLength(text) {
+	function averageWordLength(text) {
 	var lengthResult = 0;
 	text.forEach(function(item) {
 		lengthResult += item.length;
@@ -32,26 +34,22 @@ function averageWordLength(text) {
 	});
 	return lengthResult/text.length;
 
+	};
+
+	var totalCount = wordCount(newText);
+	var uniqueTotal = uniqueWordCount(newText);
+	var averageTotal = averageWordLength(newText);
+
+	$(".js-count").html(wordCount(totalCount));
+	$(".js-unique").html(uniqueWordCount(uniqueTotal));
+	$(".js-average").html(averageWordLength(averageTotal));
 };
 
 $("button").click(function(e) {
 	e.preventDefault();
-	$(".hidden").show();
 	var input = $(".js-input").val();
-	input = input.toLowerCase().replace(/\n/g, " ").split(" ").sort(); 
-	//.replace(/[,!.";:-]/g, "",/[^a-z]/g, " ").trim();
-	// input = input.replace(/\s+/g, " ");
-	
-	// input.forEach(function(item) {
-	// 	if (item === "") {
-	// 		input.splice(item, 1);
-	// 	}
-	//});
-	//	console.log(input);	
-	// normalizeText(input);
-	$(".js-count").html(wordCount(input));
-	$(".js-unique").html(uniqueWordCount(input));
-	$(".js-average").html(averageWordLength(input));
+	manipulateWords(normalizeText(input));
+	$(".hidden").show();
 });
 
 /*First, we need to return a string that is all lowercase and no special
