@@ -1,13 +1,26 @@
 // your code here!
 
-function normalizeText(text) {
-	var newText = text.toLowerCase().replace(/\r?\n|\r/g, "");
-	newText.match(/\b[^\s]+\b/g).sort();
-	return newText;
-	//not feeling super confident about this split
+
+
+function analyzeWords(text) {
+
+	var newText = normalizeText(text);
+	var averageTotal = averageWordLength(newText);
+	var uniqueTotal = uniqueWordCount(newText);
+	var totalCount = wordCount(newText);
+
+	$(".js-count").html(totalCount);
+	$(".js-unique").html(uniqueTotal);
+	$(".js-average").html(averageTotal);
 };
 
-function manipulateWords(text) {
+	function normalizeText(text) {
+	text.replace(/\r?\n|\r/g, "");
+	return text.toLowerCase().match(/\b[^\s]+\b/g).sort();
+	// console.log(Array.isArray(text));
+	// return text;
+	//not feeling super confident about this split
+}
 
 	function wordCount(text) {
 	return text.length;
@@ -32,23 +45,14 @@ function manipulateWords(text) {
 		lengthResult += item.length;
 		//create average and return it
 	});
-	return lengthResult/text.length;
-
+		return (lengthResult/text.length).toFixed(2);
 	};
 
-	var totalCount = wordCount(newText);
-	var uniqueTotal = uniqueWordCount(newText);
-	var averageTotal = averageWordLength(newText);
-
-	$(".js-count").html(wordCount(totalCount));
-	$(".js-unique").html(uniqueWordCount(uniqueTotal));
-	$(".js-average").html(averageWordLength(averageTotal));
-};
 
 $("button").click(function(e) {
 	e.preventDefault();
 	var input = $(".js-input").val();
-	manipulateWords(normalizeText(input));
+	analyzeWords(input);
 	$(".hidden").show();
 });
 
